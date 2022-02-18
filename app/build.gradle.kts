@@ -1,8 +1,8 @@
-import buildsrc.*
+import buildsrc.Libs
 
 plugins {
-    id ("com.android.application")
-    id ("org.jetbrains.kotlin.android")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -49,4 +49,31 @@ android {
 
 dependencies {
     implementation(Libs.Accompanist.insets)
+    implementation("androidx.activity:activity-ktx:1.4.0")
+
+    implementation(Libs.AndroidX.coreKtx)
+    implementation(Libs.AndroidX.Activity.activityCompose)
+    implementation(Libs.AndroidX.Lifecycle.viewModelCompose)
+    implementation(Libs.AndroidX.Navigation.navigationCompose)
+    implementation(Libs.AndroidX.ConstraintLayout.constraintLayoutCompose)
+
+    implementation(Libs.AndroidX.Compose.runtime)
+    implementation(Libs.AndroidX.Compose.foundation)
+    implementation(Libs.AndroidX.Compose.layout)
+    implementation(Libs.AndroidX.Compose.ui)
+    implementation(Libs.AndroidX.Compose.uiUtil)
+    implementation(Libs.AndroidX.Compose.material)
+    implementation(Libs.AndroidX.Compose.animation)
+    implementation(Libs.AndroidX.Compose.iconsExtended)
+    implementation(Libs.AndroidX.Compose.toolingPreview)
+    debugImplementation(Libs.AndroidX.Compose.tooling)
+
+    androidTestImplementation(Libs.JUnit.junit)
+    androidTestImplementation(Libs.AndroidX.Test.core)
+    androidTestImplementation(Libs.AndroidX.Test.runner)
+    androidTestImplementation(Libs.AndroidX.Test.espressoCore)
+    androidTestImplementation(Libs.AndroidX.Test.rules)
+    androidTestImplementation(Libs.AndroidX.Test.Ext.junit)
+    androidTestImplementation(Libs.Coroutines.test)
+    androidTestImplementation(Libs.AndroidX.Compose.uiTest)
 }
