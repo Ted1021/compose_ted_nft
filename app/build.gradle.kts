@@ -1,4 +1,4 @@
-import buildsrc.Libs
+import buildsrc.*
 
 plugins {
     id("com.android.application")
@@ -6,14 +6,14 @@ plugins {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = Config.compileSdkVersion
 
     defaultConfig {
-        applicationId = "com.developer.ted.teddynft"
-        minSdk = 23
-        targetSdk = 31
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Config.applicationId
+        minSdk = Config.minSdkVersion
+        targetSdk = Config.targetSdkVersion
+        versionCode = Config.versionCode
+        versionName = Config.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -49,7 +49,6 @@ android {
 
 dependencies {
     implementation(Libs.Accompanist.insets)
-    implementation("androidx.activity:activity-ktx:1.4.0")
 
     implementation(Libs.AndroidX.coreKtx)
     implementation(Libs.AndroidX.Activity.activityCompose)
