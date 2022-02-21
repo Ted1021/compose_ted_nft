@@ -75,4 +75,7 @@ dependencies {
     androidTestImplementation(Libs.AndroidX.Test.Ext.junit)
     androidTestImplementation(Libs.Coroutines.test)
     androidTestImplementation(Libs.AndroidX.Compose.uiTest)
+
+    implementation(Libs.Coil.coilCompose)
+
 }
