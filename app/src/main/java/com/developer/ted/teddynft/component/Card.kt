@@ -35,7 +35,7 @@ fun CardContent(modifier: Modifier) {
             .wrapContentWidth()
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.wrapContentWidth()
         ) {
             Image(
                 painter = rememberImagePainter(R.drawable.img_gundam_nft),

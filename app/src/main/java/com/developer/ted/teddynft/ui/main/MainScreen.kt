@@ -1,14 +1,10 @@
 package com.developer.ted.teddynft.ui.main
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.ScrollableState
-import androidx.compose.foundation.gestures.rememberScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -26,7 +22,10 @@ import com.google.accompanist.pager.rememberPagerState
 @ExperimentalPagerApi
 @Composable
 fun MainScreen() {
-    LazyColumn(modifier = Modifier){
+    LazyColumn(
+        contentPadding = PaddingValues(bottom = 40.dp),
+        modifier = Modifier
+    ) {
         item {
             Spacer(modifier = Modifier.height(40.dp))
             InfoHeader()
@@ -82,12 +81,17 @@ fun Categories() {
         onViewAllClicked = {},
         modifier = Modifier
     ) {
+        var currentCategory by remember { mutableStateOf("Art") }
+
         Box(modifier = Modifier.fillMaxWidth()) {
             val categories = listOf("Art", "Music", "Games", "Domains")
             Row(modifier = Modifier.align(Alignment.Center)) {
                 categories.forEachIndexed { idx, value ->
                     if (idx != 0) Spacer(Modifier.width(12.dp))
-                    StrokeTextButton(text = value)
+                    StrokeTextButton(
+                        text = value,
+                        selected = currentCategory == value
+                    ) { currentCategory = it }
                 }
             }
         }
@@ -123,11 +127,10 @@ fun TopSellers() {
         modifier = Modifier
     ) {
         Column(modifier = Modifier.padding(horizontal = 20.dp)) {
-            Seller()
-            Spacer(modifier = Modifier.height(5.dp))
-            Seller()
-            Spacer(modifier = Modifier.height(5.dp))
-            Seller()
+            (0..4).forEachIndexed { idx, _ ->
+                if (idx != 0) Spacer(modifier = Modifier.height(5.dp))
+                Seller()
+            }
         }
     }
 }

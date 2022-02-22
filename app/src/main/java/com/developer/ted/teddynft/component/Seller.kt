@@ -61,7 +61,7 @@ fun Seller() {
                 fontWeight = FontWeight.W700,
                 color = colorResource(R.color.primary_color),
                 modifier = Modifier
-                    .padding(end = 44.dp)
+                    .padding(end = 29.dp)
                     .align(Alignment.CenterVertically)
             )
         }

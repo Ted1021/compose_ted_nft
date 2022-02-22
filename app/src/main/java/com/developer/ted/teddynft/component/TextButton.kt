@@ -1,6 +1,7 @@
 package com.developer.ted.teddynft.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,7 +19,8 @@ import com.developer.ted.teddynft.common.textDp
 @Composable
 fun StrokeTextButton(
     text: String,
-    selected: Boolean = false
+    selected: Boolean = false,
+    onClicked: ((String) -> Unit)? = null
 ) {
     val fontColor = colorResource(if (selected) R.color.white else R.color.black)
     val surfaceColor = colorResource(if (selected) R.color.primary_color else R.color.white)
@@ -28,7 +30,9 @@ fun StrokeTextButton(
         color = surfaceColor,
         border = BorderStroke(width = 1.dp, color = strokeColor),
         shape = RoundedCornerShape(size = 12.dp),
-        modifier = Modifier.height(35.dp)
+        modifier = Modifier
+            .height(35.dp)
+            .clickable { onClicked?.invoke(text) }
     ) {
         Text(
             text = text,
