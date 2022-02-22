@@ -36,6 +36,7 @@ fun Seller() {
 
             Column(
                 modifier = Modifier
+                    .padding(horizontal = 18.dp)
                     .weight(1f)
                     .align(Alignment.CenterVertically)
             ) {

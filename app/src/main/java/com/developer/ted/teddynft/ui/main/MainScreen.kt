@@ -1,7 +1,12 @@
 package com.developer.ted.teddynft.ui.main
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.ScrollableState
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,15 +26,17 @@ import com.google.accompanist.pager.rememberPagerState
 @ExperimentalPagerApi
 @Composable
 fun MainScreen() {
-    Column {
-        Spacer(modifier = Modifier.height(40.dp))
-        InfoHeader()
-        Spacer(modifier = Modifier.height(44.dp))
-        Categories()
-        Spacer(modifier = Modifier.height(49.dp))
-        Features()
-        Spacer(modifier = Modifier.height(40.dp))
-        TopSellers()
+    LazyColumn(modifier = Modifier){
+        item {
+            Spacer(modifier = Modifier.height(40.dp))
+            InfoHeader()
+            Spacer(modifier = Modifier.height(44.dp))
+            Categories()
+            Spacer(modifier = Modifier.height(49.dp))
+            Features()
+            Spacer(modifier = Modifier.height(40.dp))
+            TopSellers()
+        }
     }
 }
 
@@ -42,7 +49,7 @@ fun InfoHeader() {
             .padding(horizontal = 28.dp)
     ) {
         Image(
-            painter = rememberImagePainter(R.drawable.ic_eth),
+            painter = rememberImagePainter(R.drawable.ic_cryptocurrency),
             contentDescription = null,
             modifier = Modifier.size(33.dp)
         )
@@ -100,7 +107,7 @@ fun Features() {
         HorizontalPager(
             count = 3,
             state = pagerState,
-            contentPadding = PaddingValues(horizontal = 44.dp)
+            contentPadding = PaddingValues(horizontal = 28.dp)
         ) {
             Card()
         }

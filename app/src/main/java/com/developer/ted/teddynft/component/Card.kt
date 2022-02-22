@@ -19,7 +19,7 @@ import com.developer.ted.teddynft.common.textDp
 
 @Composable
 fun Card() {
-    Box(modifier = Modifier.padding(horizontal = 28.dp)) {
+    Box(modifier = Modifier.padding(horizontal = 16.dp)) {
         CardContent(modifier = Modifier.padding(bottom = 32.dp))
         CardButtons(modifier = Modifier.align(Alignment.BottomCenter))
     }
@@ -32,8 +32,7 @@ fun CardContent(modifier: Modifier) {
         color = colorResource(R.color.card_background_color),
         elevation = 4.dp,
         modifier = modifier
-            .fillMaxWidth()
-            .height(415.dp)
+            .wrapContentWidth()
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -42,7 +41,6 @@ fun CardContent(modifier: Modifier) {
                 painter = rememberImagePainter(R.drawable.img_gundam_nft),
                 contentDescription = null,
                 modifier = Modifier
-                    .clip(RoundedCornerShape(40.dp))
                     .fillMaxWidth()
                     .height(310.dp)
             )

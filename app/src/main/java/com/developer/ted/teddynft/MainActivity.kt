@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.developer.ted.teddynft.ui.intro.IntroScreen
+import com.developer.ted.teddynft.ui.main.MainScreen
 import com.developer.ted.teddynft.ui.theme.TeddyNFTTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TeddyNFTTheme {
-                IntroScreen()
+                MainScreen()
             }
         }
     }
@@ -31,6 +32,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     TeddyNFTTheme {
-       IntroScreen()
+       MainScreen()
     }
 }
