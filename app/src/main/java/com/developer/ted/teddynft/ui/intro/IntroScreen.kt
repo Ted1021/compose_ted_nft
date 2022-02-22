@@ -2,6 +2,7 @@ package com.developer.ted.teddynft.ui.intro
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,13 +16,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.developer.ted.teddynft.R
 import com.developer.ted.teddynft.common.textDp
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.rememberPagerState
 
+@ExperimentalPagerApi
 @Composable
 fun IntroScreen() {
     Box(
@@ -38,49 +45,48 @@ fun IntroScreen() {
                 .fillMaxWidth()
         )
 
-        BottomCard(
-            Modifier
-                .clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
-                .background(color = colorResource(R.color.white))
-                .align(Alignment.BottomCenter)
-                .height(374.dp)
-                .fillMaxWidth()
-        )
+        BottomCard(modifier = Modifier.align(Alignment.BottomCenter))
     }
 }
 
+@ExperimentalPagerApi
 @Composable
 fun BottomCard(modifier: Modifier) {
-    val currentIdx by remember { mutableStateOf(0) }
-    Column(modifier = modifier) {
+    val pagerState = rememberPagerState()
+
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
+            .background(color = colorResource(R.color.white))
+            .height(374.dp)
+            .fillMaxWidth()
+    ) {
         CardIndicator(
-            currentIdx,
+            pagerState,
             Modifier
-                .padding(top = 33.dp, bottom = 41.dp)
                 .align(Alignment.CenterHorizontally)
+                .padding(top = 33.dp, bottom = 41.dp)
         )
 
-        CardContent()
-        // CardContentList()
+        CardContentList(pagerState)
     }
 }
 
+@ExperimentalPagerApi
 @Composable
 fun CardIndicator(
-    currentIdx: Int = 0,
+    pagerState: PagerState,
     modifier: Modifier
 ) {
-    LazyRow(
-        contentPadding = PaddingValues(4.57.dp),
-        modifier = modifier
-    ) {
+    LazyRow(modifier = modifier) {
         items(3) { idx ->
-            val dotRes =
-                if (idx == currentIdx) R.drawable.indicator_dot_enabled
-                else R.drawable.indicator_dot_disabled
+            val dotRes = if (idx == pagerState.currentPage) R.drawable.indicator_dot_enabled
+            else R.drawable.indicator_dot_disabled
+
+            if (idx != 0) Spacer(modifier = Modifier.width(4.57.dp))
 
             Image(
-                painter = rememberImagePainter(R.drawable.indicator_dot_disabled),
+                painter = rememberImagePainter(dotRes),
                 contentDescription = null,
                 modifier = Modifier.size(7.6.dp)
             )
@@ -88,21 +94,28 @@ fun CardIndicator(
     }
 }
 
+@ExperimentalPagerApi
 @Composable
-fun CardContentList() {
-    LazyRow(modifier = Modifier.fillMaxWidth()) {
-        items(3) {
-            CardContent()
-        }
+fun CardContentList(pagerState: PagerState) {
+    HorizontalPager(
+        count = 3,
+        state = pagerState
+    ) {
+        CardContent()
     }
 }
 
 @Composable
 fun CardContent() {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(
+        modifier = Modifier
+            .width(IntrinsicSize.Max)
+            .fillMaxHeight()
+    ) {
         Text(
             text = "Discover Rare Collectibles",
             textAlign = TextAlign.Center,
+            fontWeight = FontWeight.ExtraBold,
             fontSize = 28.textDp,
             color = colorResource(R.color.black),
             modifier = Modifier
@@ -120,23 +133,32 @@ fun CardContent() {
                 .padding(start = 44.dp, end = 44.dp, bottom = 41.dp)
         )
 
-        Text(
-            text = "Explore NFTs",
-            color = colorResource(id = R.color.white),
-            fontSize = 20.textDp,
-            textAlign = TextAlign.Center,
+        Box(
             modifier = Modifier
-                .clip(RoundedCornerShape(size = 12.dp))
                 .padding(horizontal = 28.dp)
-                .background(color = colorResource(R.color.primary_color))
                 .height(75.dp)
                 .fillMaxWidth()
-        )
+                .clip(RoundedCornerShape(size = 12.dp))
+                .background(color = colorResource(R.color.primary_color))
+                .clickable {}
+        ) {
+            Text(
+                text = "Explore NFTs",
+                color = colorResource(id = R.color.white),
+                fontSize = 20.textDp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
     }
 }
 
 
-@Preview
+@ExperimentalPagerApi
+@Preview(
+    widthDp = 414,
+    heightDp = 896
+)
 @Composable
 fun PreviewIntroScreen() {
     IntroScreen()

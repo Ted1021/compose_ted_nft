@@ -10,6 +10,7 @@ object Libs {
         val insets by lazy { "com.google.accompanist:accompanist-insets:${Versions.accompanist}" }
         val systemuicontroller by lazy { "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}" }
         val flowlayouts by lazy { "com.google.accompanist:accompanist-flowlayout:${Versions.accompanist}" }
+        val pager by lazy { "com.google.accompanist:accompanist-pager:${Versions.accompanist}" }
     }
 
     object Kotlin {

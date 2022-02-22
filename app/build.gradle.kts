@@ -49,6 +49,7 @@ android {
 
 dependencies {
     implementation(Libs.Accompanist.insets)
+    implementation(Libs.Accompanist.pager)
 
     implementation(Libs.AndroidX.coreKtx)
     implementation(Libs.AndroidX.Activity.activityCompose)
