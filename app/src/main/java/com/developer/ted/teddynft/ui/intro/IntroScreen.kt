@@ -1,5 +1,6 @@
 package com.developer.ted.teddynft.ui.intro
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,12 +9,10 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -52,6 +51,7 @@ fun IntroScreen() {
 @ExperimentalPagerApi
 @Composable
 fun BottomCard(modifier: Modifier) {
+    val context = LocalContext.current
     val pagerState = rememberPagerState()
 
     Column(
@@ -68,7 +68,9 @@ fun BottomCard(modifier: Modifier) {
                 .padding(top = 33.dp, bottom = 41.dp)
         )
 
-        CardContentList(pagerState)
+        CardContentList(pagerState) {
+            Toast.makeText(context, "wow! ${pagerState.currentPage}", Toast.LENGTH_SHORT).show()
+        }
     }
 }
 
@@ -96,17 +98,20 @@ fun CardIndicator(
 
 @ExperimentalPagerApi
 @Composable
-fun CardContentList(pagerState: PagerState) {
+fun CardContentList(
+    pagerState: PagerState,
+    onButtonClicked: () -> Unit
+) {
     HorizontalPager(
         count = 3,
         state = pagerState
     ) {
-        CardContent()
+        CardContent(onButtonClicked)
     }
 }
 
 @Composable
-fun CardContent() {
+fun CardContent(onButtonClicked: () -> Unit) {
     Column(
         modifier = Modifier
             .width(IntrinsicSize.Max)
@@ -140,7 +145,7 @@ fun CardContent() {
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(size = 12.dp))
                 .background(color = colorResource(R.color.primary_color))
-                .clickable {}
+                .clickable { onButtonClicked.invoke() }
         ) {
             Text(
                 text = "Explore NFTs",
