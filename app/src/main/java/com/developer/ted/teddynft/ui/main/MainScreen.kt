@@ -1,10 +1,7 @@
 package com.developer.ted.teddynft.ui.main
 
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,20 +13,28 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.developer.ted.teddynft.R
 import com.developer.ted.teddynft.common.textDp
+import com.developer.ted.teddynft.component.*
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
 
+@ExperimentalPagerApi
 @Composable
 fun MainScreen() {
     Column {
-        Info()
+        Spacer(modifier = Modifier.height(40.dp))
+        InfoHeader()
+        Spacer(modifier = Modifier.height(44.dp))
         Categories()
+        Spacer(modifier = Modifier.height(49.dp))
         Features()
+        Spacer(modifier = Modifier.height(40.dp))
         TopSellers()
     }
-
 }
 
 @Composable
-fun Info() {
+fun InfoHeader() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -63,35 +68,65 @@ fun Info() {
 }
 
 @Composable
-fun StrokeImageButton(@DrawableRes res: Int) {
-    Surface(
-        border = BorderStroke(width = 1.dp, color = colorResource(R.color.light_gray)),
-        modifier = Modifier.size(width = 48.dp, height = 46.dp)
+fun Categories() {
+    Carousel(
+        title = MainScreenCarousel.CATEGORIES.title,
+        titlePadding = 20.dp,
+        onViewAllClicked = {},
+        modifier = Modifier
     ) {
-        Image(
-            painter = rememberImagePainter(res),
-            contentDescription = null,
-            modifier = Modifier.size(22.dp)
-        )
+        Box(modifier = Modifier.fillMaxWidth()) {
+            val categories = listOf("Art", "Music", "Games", "Domains")
+            Row(modifier = Modifier.align(Alignment.Center)) {
+                categories.forEachIndexed { idx, value ->
+                    if (idx != 0) Spacer(Modifier.width(12.dp))
+                    StrokeTextButton(text = value)
+                }
+            }
+        }
+    }
+}
+
+@ExperimentalPagerApi
+@Composable
+fun Features() {
+    val pagerState = rememberPagerState()
+    Carousel(
+        title = MainScreenCarousel.FEATURES.title,
+        titlePadding = 20.dp,
+        onViewAllClicked = {},
+        modifier = Modifier
+    ) {
+        HorizontalPager(
+            count = 3,
+            state = pagerState,
+            contentPadding = PaddingValues(horizontal = 44.dp)
+        ) {
+            Card()
+        }
     }
 }
 
 @Composable
-fun Categories() {
-
-}
-
-@Composable
-fun Features() {
-
-}
-
-@Composable
 fun TopSellers() {
-
+    Carousel(
+        title = MainScreenCarousel.TOP_SELLERS.title,
+        titlePadding = 20.dp,
+        onViewAllClicked = {},
+        modifier = Modifier
+    ) {
+        Column(modifier = Modifier.padding(horizontal = 20.dp)) {
+            Seller()
+            Spacer(modifier = Modifier.height(5.dp))
+            Seller()
+            Spacer(modifier = Modifier.height(5.dp))
+            Seller()
+        }
+    }
 }
 
 
+@ExperimentalPagerApi
 @Preview(
     showBackground = true,
     backgroundColor = 0xFFFFFF,
@@ -101,4 +136,10 @@ fun TopSellers() {
 @Composable
 fun PreviewMainScreen() {
     MainScreen()
+}
+
+enum class MainScreenCarousel(val title: String) {
+    CATEGORIES("Categories"),
+    FEATURES("Featured NFTs"),
+    TOP_SELLERS("Top Sellers")
 }
