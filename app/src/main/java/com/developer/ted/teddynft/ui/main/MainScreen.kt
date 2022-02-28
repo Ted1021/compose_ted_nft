@@ -65,11 +65,17 @@ fun InfoHeader() {
 
         Spacer(modifier = Modifier.width(15.dp))
 
-        StrokeImageButton(res = R.drawable.ic_search_normal)
+        StrokeImageButton(
+            res = R.drawable.ic_search_normal,
+            modifier = Modifier
+        )
 
         Spacer(modifier = Modifier.width(15.dp))
 
-        StrokeImageButton(res = R.drawable.ic_notification)
+        StrokeImageButton(
+            res = R.drawable.ic_notification,
+            modifier = Modifier
+        )
     }
 }
 
