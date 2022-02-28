@@ -1,18 +1,18 @@
 package com.developer.ted.teddynft.ui.intro
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -30,18 +30,13 @@ import com.google.accompanist.pager.rememberPagerState
 @ExperimentalPagerApi
 @Composable
 fun IntroScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth()
-    ) {
+    Box {
         Image(
             painter = painterResource(id = R.drawable.bg_intro_screen),
             contentDescription = null,
             alignment = Alignment.TopCenter,
-            modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillHeight
         )
 
         BottomCard(modifier = Modifier.align(Alignment.BottomCenter))
@@ -51,7 +46,6 @@ fun IntroScreen() {
 @ExperimentalPagerApi
 @Composable
 fun BottomCard(modifier: Modifier) {
-    val context = LocalContext.current
     val pagerState = rememberPagerState()
 
     Column(
@@ -61,22 +55,22 @@ fun BottomCard(modifier: Modifier) {
             .height(374.dp)
             .fillMaxWidth()
     ) {
-        CardIndicator(
+        IntroCardIndicator(
             pagerState,
             Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 33.dp, bottom = 41.dp)
         )
 
-        CardContentList(pagerState) {
-            Toast.makeText(context, "wow! ${pagerState.currentPage}", Toast.LENGTH_SHORT).show()
-        }
+        IntroCardContentList(pagerState)
+
+        IntroCardButton()
     }
 }
 
 @ExperimentalPagerApi
 @Composable
-fun CardIndicator(
+fun IntroCardIndicator(
     pagerState: PagerState,
     modifier: Modifier
 ) {
@@ -98,25 +92,15 @@ fun CardIndicator(
 
 @ExperimentalPagerApi
 @Composable
-fun CardContentList(
-    pagerState: PagerState,
-    onButtonClicked: () -> Unit
-) {
-    HorizontalPager(
-        count = 3,
-        state = pagerState
-    ) {
-        CardContent(onButtonClicked)
+fun IntroCardContentList(pagerState: PagerState) {
+    HorizontalPager(count = 3, state = pagerState) {
+        CardContent()
     }
 }
 
 @Composable
-fun CardContent(onButtonClicked: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .width(IntrinsicSize.Max)
-            .fillMaxHeight()
-    ) {
+fun CardContent() {
+    Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             text = "Discover Rare Collectibles",
             textAlign = TextAlign.Center,
@@ -137,24 +121,29 @@ fun CardContent(onButtonClicked: () -> Unit) {
                 .fillMaxWidth()
                 .padding(start = 44.dp, end = 44.dp, bottom = 41.dp)
         )
+    }
+}
 
-        Box(
+@Composable
+fun IntroCardButton() {
+    Surface(
+        color = colorResource(R.color.primary_color),
+        shape = RoundedCornerShape(size = 12.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 28.dp)
+            .clickable { }
+    ) {
+        Text(
+            text = "Explore NFTs",
+            color = colorResource(R.color.white),
+            fontSize = 20.textDp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
             modifier = Modifier
-                .padding(horizontal = 28.dp)
                 .height(75.dp)
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(size = 12.dp))
-                .background(color = colorResource(R.color.primary_color))
-                .clickable { onButtonClicked.invoke() }
-        ) {
-            Text(
-                text = "Explore NFTs",
-                color = colorResource(id = R.color.white),
-                fontSize = 20.textDp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
+                .wrapContentSize()
+        )
     }
 }
 
