@@ -6,7 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Surface
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.developer.ted.teddynft.R
 import com.developer.ted.teddynft.common.textDp
+import com.developer.ted.teddynft.component.RoundedTextButton
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -64,7 +65,14 @@ fun BottomCard(modifier: Modifier) {
 
         IntroCardContentList(pagerState)
 
-        IntroCardButton()
+        RoundedTextButton(
+            text = "Explorer NFTs",
+            onClick = { },
+            modifier = Modifier
+                .padding(horizontal = 28.dp)
+                .fillMaxWidth()
+        )
+        // IntroCardButton()
     }
 }
 
@@ -126,24 +134,32 @@ fun CardContent() {
 
 @Composable
 fun IntroCardButton() {
-    Surface(
-        color = colorResource(R.color.primary_color),
+    Card(
         shape = RoundedCornerShape(size = 12.dp),
+        backgroundColor = colorResource(R.color.primary_color),
         modifier = Modifier
+            .clip(RoundedCornerShape(size = 12.dp))
             .fillMaxWidth()
             .padding(horizontal = 28.dp)
             .clickable { }
+
     ) {
-        Text(
-            text = "Explore NFTs",
-            color = colorResource(R.color.white),
-            fontSize = 20.textDp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
+        Box(
             modifier = Modifier
-                .height(75.dp)
-                .wrapContentSize()
-        )
+                .fillMaxWidth()
+                .clickable { }
+        ) {
+            Text(
+                text = "Explore NFTs",
+                color = colorResource(R.color.white),
+                fontSize = 20.textDp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .height(75.dp)
+                    .wrapContentSize()
+            )
+        }
     }
 }
 

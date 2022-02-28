@@ -94,7 +94,7 @@ fun Categories() {
             Row(modifier = Modifier.align(Alignment.Center)) {
                 categories.forEachIndexed { idx, value ->
                     if (idx != 0) Spacer(Modifier.width(12.dp))
-                    StrokeTextButton(
+                    SelectableTextButton(
                         text = value,
                         selected = currentCategory == value
                     ) { currentCategory = it }
@@ -119,7 +119,7 @@ fun Features() {
             state = pagerState,
             contentPadding = PaddingValues(horizontal = 28.dp)
         ) {
-            Card()
+            NftCard()
         }
     }
 }

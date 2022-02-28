@@ -2,6 +2,11 @@ package com.developer.ted.teddynft.common
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
@@ -44,3 +49,10 @@ fun Modifier.drawColorShadow(
         )
     }
 }
+
+@Composable
+fun Modifier.borderLessClickable(onClick: () -> Unit) = this.clickable(
+    interactionSource = remember { MutableInteractionSource() },
+    indication = rememberRipple(bounded = true),
+    onClick = { onClick.invoke() }
+)
