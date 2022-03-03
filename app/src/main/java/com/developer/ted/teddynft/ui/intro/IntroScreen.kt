@@ -6,8 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.ButtonDefaults.buttonColors
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,12 +24,12 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.developer.ted.teddynft.R
 import com.developer.ted.teddynft.common.textDp
-import com.developer.ted.teddynft.component.RoundedTextButton
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun IntroScreen() {
@@ -44,6 +46,7 @@ fun IntroScreen() {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun BottomCard(modifier: Modifier) {
@@ -64,15 +67,15 @@ fun BottomCard(modifier: Modifier) {
         )
 
         IntroCardContentList(pagerState)
-
-        RoundedTextButton(
-            text = "Explorer NFTs",
-            onClick = { },
-            modifier = Modifier
-                .padding(horizontal = 28.dp)
-                .fillMaxWidth()
-        )
+        TestButton()
         // IntroCardButton()
+//        RoundedTextButton(
+//            text = "Explorer NFTs",
+//            onClick = { },
+//            modifier = Modifier
+//                .padding(horizontal = 28.dp)
+//                .fillMaxWidth()
+//        )
     }
 }
 
@@ -134,36 +137,89 @@ fun CardContent() {
 
 @Composable
 fun IntroCardButton() {
-    Card(
-        shape = RoundedCornerShape(size = 12.dp),
-        backgroundColor = colorResource(R.color.primary_color),
+    Button(
+        colors = buttonColors(
+            backgroundColor = colorResource(R.color.primary_color),
+            contentColor = colorResource(R.color.black),
+            disabledContentColor = colorResource(R.color.white),
+            disabledBackgroundColor = colorResource(R.color.black)
+        ),
+        contentPadding = ButtonDefaults.TextButtonContentPadding,
+        elevation = ButtonDefaults.elevation(0.dp, 0.dp, 0.dp, 0.dp, 0.dp),
+        shape = RoundedCornerShape(12.dp),
+        onClick = { },
         modifier = Modifier
-            .clip(RoundedCornerShape(size = 12.dp))
+            .padding(28.dp)
+            .fillMaxWidth()
+            .height(75.dp)
+    ) {
+        Text(
+            text = "Explore NFTs",
+            color = colorResource(R.color.white),
+            fontSize = 20.textDp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+//                .height(75.dp)
+                .wrapContentSize()
+        )
+    }
+
+//    Card(
+//        shape = RoundedCornerShape(size = 12.dp),
+//        backgroundColor = colorResource(R.color.primary_color),
+//        modifier = Modifier
+//            .clip(RoundedCornerShape(size = 12.dp))
+//            .fillMaxWidth()
+//            .padding(horizontal = 28.dp)
+//            .clickable { }
+//
+//    ) {
+//        Box(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .clickable { }
+//        ) {
+//            Text(
+//                text = "Explore NFTs",
+//                color = colorResource(R.color.white),
+//                fontSize = 20.textDp,
+//                fontWeight = FontWeight.Bold,
+//                textAlign = TextAlign.Center,
+//                modifier = Modifier
+//                    .height(75.dp)
+//                    .wrapContentSize()
+//            )
+//        }
+//    }
+}
+
+@ExperimentalMaterialApi
+@Composable
+fun TestButton() {
+    Surface(
+        onClick = {},
+        shape = RoundedCornerShape(12.dp),
+        color = colorResource(R.color.primary_color),
+        modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 28.dp)
-            .clickable { }
-
     ) {
-        Box(
+        Text(
+            text = "Explore NFTs",
+            color = colorResource(R.color.white),
+            fontSize = 20.textDp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
             modifier = Modifier
-                .fillMaxWidth()
-                .clickable { }
-        ) {
-            Text(
-                text = "Explore NFTs",
-                color = colorResource(R.color.white),
-                fontSize = 20.textDp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .height(75.dp)
-                    .wrapContentSize()
-            )
-        }
+                .height(75.dp)
+                .wrapContentSize()
+        )
     }
 }
 
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Preview(
     widthDp = 414,
