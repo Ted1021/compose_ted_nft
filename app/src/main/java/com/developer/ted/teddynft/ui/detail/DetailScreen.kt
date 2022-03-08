@@ -25,10 +25,9 @@ import com.developer.ted.teddynft.R
 import com.developer.ted.teddynft.common.drawColorShadow
 import com.developer.ted.teddynft.common.textDp
 import com.developer.ted.teddynft.component.StrokeImageButton
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun DetailScreen() {
+fun DetailScreen(nftId: Long) {
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.scrollable(state = scrollState, orientation = Orientation.Vertical)) {
         Spacer(modifier = Modifier.height(40.dp))
@@ -225,5 +224,5 @@ fun BottomCardButton(
 )
 @Composable
 fun PreviewDetailAppbar() {
-    DetailScreen()
+    DetailScreen(0)
 }

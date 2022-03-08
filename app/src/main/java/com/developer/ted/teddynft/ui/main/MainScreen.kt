@@ -21,7 +21,10 @@ import com.google.accompanist.pager.rememberPagerState
 
 @ExperimentalPagerApi
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    userId: Long,
+    navigateToDetail: (id: Long) -> Unit
+) {
     LazyColumn(
         contentPadding = PaddingValues(bottom = 40.dp),
         modifier = Modifier
@@ -151,7 +154,7 @@ fun TopSellers() {
 )
 @Composable
 fun PreviewMainScreen() {
-    MainScreen()
+    MainScreen(0) { }
 }
 
 enum class MainScreenCarousel(val title: String) {
