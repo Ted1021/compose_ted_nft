@@ -77,6 +77,8 @@ dependencies {
     androidTestImplementation(Libs.Coroutines.test)
     androidTestImplementation(Libs.AndroidX.Compose.uiTest)
 
+    implementation(Libs.AndroidX.Navigation.navigationCompose)
+
     implementation(Libs.Coil.coilCompose)
 
 }
