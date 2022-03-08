@@ -30,7 +30,7 @@ import com.google.accompanist.pager.rememberPagerState
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-fun IntroScreen(navigateToMain: (Long) -> Unit) {
+fun IntroScreen(navigateToMain: (userId: Long) -> Unit) {
     Box {
         Image(
             painter = painterResource(id = R.drawable.bg_intro_screen),

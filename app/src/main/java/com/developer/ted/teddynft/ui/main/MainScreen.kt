@@ -3,6 +3,7 @@ package com.developer.ted.teddynft.ui.main
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -19,31 +20,49 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun MainScreen(
     userId: Long,
-    navigateToDetail: (id: Long) -> Unit
+    navigateToDetail: (nftId: Long) -> Unit
 ) {
+
+    val clickEvents = { action: MainScreenClickEvent ->
+        when (action) {
+            is MainScreenClickEvent.PlaceBid -> {
+                navigateToDetail.invoke(action.nftId)
+            }
+
+            // TODO
+            is MainScreenClickEvent.Notification -> {}
+            is MainScreenClickEvent.Search -> {}
+            is MainScreenClickEvent.Seller -> {}
+            is MainScreenClickEvent.Like -> {}
+            is MainScreenClickEvent.Category -> {}
+            is MainScreenClickEvent.ViewAll -> {}
+        }
+    }
     LazyColumn(
         contentPadding = PaddingValues(bottom = 40.dp),
         modifier = Modifier
     ) {
         item {
             Spacer(modifier = Modifier.height(40.dp))
-            InfoHeader()
+            InfoHeader(clickEvents)
             Spacer(modifier = Modifier.height(44.dp))
-            Categories()
+            Categories(clickEvents)
             Spacer(modifier = Modifier.height(49.dp))
-            Features()
+            Features(clickEvents)
             Spacer(modifier = Modifier.height(40.dp))
-            TopSellers()
+            TopSellers(clickEvents)
         }
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
-fun InfoHeader() {
+fun InfoHeader(onClick: (MainScreenClickEvent) -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -68,26 +87,21 @@ fun InfoHeader() {
 
         Spacer(modifier = Modifier.width(15.dp))
 
-        StrokeImageButton(
-            res = R.drawable.ic_search_normal,
-            modifier = Modifier
-        )
+        StrokeImageButton(res = R.drawable.ic_search_normal) { onClick.invoke(MainScreenClickEvent.Search) }
 
         Spacer(modifier = Modifier.width(15.dp))
 
-        StrokeImageButton(
-            res = R.drawable.ic_notification,
-            modifier = Modifier
-        )
+        StrokeImageButton(res = R.drawable.ic_notification) { onClick.invoke(MainScreenClickEvent.Notification) }
     }
 }
 
+
 @Composable
-fun Categories() {
+fun Categories(itemClickListener: (MainScreenClickEvent) -> Unit) {
     Carousel(
         title = MainScreenCarousel.CATEGORIES.title,
         titlePadding = 20.dp,
-        onViewAllClicked = {},
+        onViewAllClicked = itemClickListener,
         modifier = Modifier
     ) {
         var currentCategory by remember { mutableStateOf("Art") }
@@ -107,14 +121,15 @@ fun Categories() {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-fun Features() {
+fun Features(itemClickListener: (MainScreenClickEvent) -> Unit) {
     val pagerState = rememberPagerState()
     Carousel(
         title = MainScreenCarousel.FEATURES.title,
         titlePadding = 20.dp,
-        onViewAllClicked = {},
+        onViewAllClicked = itemClickListener,
         modifier = Modifier
     ) {
         HorizontalPager(
@@ -122,29 +137,30 @@ fun Features() {
             state = pagerState,
             contentPadding = PaddingValues(horizontal = 28.dp)
         ) {
-            NftCard()
+            NftCard(itemClickListener = itemClickListener)
         }
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
-fun TopSellers() {
+fun TopSellers(itemClickListener: (MainScreenClickEvent) -> Unit) {
     Carousel(
         title = MainScreenCarousel.TOP_SELLERS.title,
         titlePadding = 20.dp,
-        onViewAllClicked = {},
+        onViewAllClicked = itemClickListener,
         modifier = Modifier
     ) {
         Column(modifier = Modifier.padding(horizontal = 20.dp)) {
             (0..4).forEachIndexed { idx, _ ->
                 if (idx != 0) Spacer(modifier = Modifier.height(5.dp))
-                Seller()
+                Seller(onSellerClicked = itemClickListener)
             }
         }
     }
 }
 
-
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Preview(
     showBackground = true,
@@ -154,7 +170,7 @@ fun TopSellers() {
 )
 @Composable
 fun PreviewMainScreen() {
-    MainScreen(0) { }
+    MainScreen(0) {}
 }
 
 enum class MainScreenCarousel(val title: String) {

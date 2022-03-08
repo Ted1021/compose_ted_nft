@@ -1,10 +1,36 @@
 package com.developer.ted.teddynft.common.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.*
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination
+import androidx.navigation.NavGraph
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
+
+@ExperimentalMaterialApi
+@ExperimentalPagerApi
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun AppNavigation(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Intro.routeFormat,
+        modifier = modifier
+    ) {
+        appNavGraph(navController)
+    }
+}
 
 @Composable
 fun rememberNavigator(

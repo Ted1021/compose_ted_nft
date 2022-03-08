@@ -3,6 +3,7 @@ package com.developer.ted.teddynft.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,12 +16,17 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.developer.ted.teddynft.R
 import com.developer.ted.teddynft.common.textDp
+import com.developer.ted.teddynft.ui.main.MainScreenClickEvent
 
+@ExperimentalMaterialApi
 @Composable
-fun NftCard() {
+fun NftCard(itemClickListener: (MainScreenClickEvent) -> Unit) {
     Box(modifier = Modifier.padding(horizontal = 16.dp)) {
         CardContent(modifier = Modifier.padding(bottom = 32.dp))
-        CardButtons(modifier = Modifier.align(Alignment.BottomCenter))
+        CardButtons(
+            itemClickListener = itemClickListener,
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
     }
 }
 
@@ -87,10 +93,15 @@ fun CardContent(modifier: Modifier) {
 
 }
 
+@ExperimentalMaterialApi
 @Composable
-fun CardButtons(modifier: Modifier) {
+fun CardButtons(
+    itemClickListener: (MainScreenClickEvent) -> Unit,
+    modifier: Modifier
+) {
     Row(modifier = modifier) {
         Surface(
+            onClick = { itemClickListener.invoke(MainScreenClickEvent.PlaceBid(1)) },
             shape = RoundedCornerShape(18.dp),
             color = colorResource(id = R.color.black)
         ) {
@@ -106,6 +117,7 @@ fun CardButtons(modifier: Modifier) {
         Spacer(modifier = Modifier.width(10.dp))
 
         Surface(
+            onClick = { itemClickListener.invoke(MainScreenClickEvent.Like) },
             shape = RoundedCornerShape(18.dp),
             color = colorResource(id = R.color.primary_color)
         ) {
@@ -120,8 +132,9 @@ fun CardButtons(modifier: Modifier) {
     }
 }
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun PreviewCard() {
-    NftCard()
+    NftCard {}
 }

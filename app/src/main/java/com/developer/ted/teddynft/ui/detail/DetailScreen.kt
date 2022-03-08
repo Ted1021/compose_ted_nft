@@ -25,6 +25,7 @@ import com.developer.ted.teddynft.R
 import com.developer.ted.teddynft.common.drawColorShadow
 import com.developer.ted.teddynft.common.textDp
 import com.developer.ted.teddynft.component.StrokeImageButton
+@ExperimentalMaterialApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DetailScreen(nftId: Long) {
@@ -44,6 +45,7 @@ fun DetailScreen(nftId: Long) {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun DetailAppbar() {
     Box(
@@ -54,20 +56,20 @@ fun DetailAppbar() {
         StrokeImageButton(
             res = R.drawable.ic_back,
             modifier = Modifier.align(Alignment.TopStart)
-        )
+        ) {}
 
         Row(modifier = Modifier.align(Alignment.CenterEnd)) {
             StrokeImageButton(
                 res = R.drawable.ic_heart_light,
                 modifier = Modifier
-            )
+            ) {}
 
             Spacer(modifier = Modifier.width(15.dp))
 
             StrokeImageButton(
                 res = R.drawable.ic_more_light,
                 modifier = Modifier
-            )
+            ) {}
         }
     }
 }
@@ -215,6 +217,7 @@ fun BottomCardButton(
 }
 
 
+@ExperimentalMaterialApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(
     showBackground = true,

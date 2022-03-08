@@ -5,6 +5,8 @@ import androidx.annotation.RequiresApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.developer.ted.teddynft.common.navigation.AppNavigation
 import com.developer.ted.teddynft.common.navigation.Screen
 import com.developer.ted.teddynft.common.navigation.appNavGraph
 import com.developer.ted.teddynft.common.navigation.rememberNavigator
@@ -17,16 +19,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @Composable
 fun TeddyNftApp() {
     TeddyNFTTheme {
-        val navigator = rememberNavigator()
-
-        NavHost(
-            navController = navigator.navController,
-            startDestination = Screen.Intro.routeFormat
-        ) {
-            appNavGraph(
-                toMain = { userId -> navigator.navigateToMain(userId) },
-                toDetail = { nftId -> navigator.navigateToDetail(nftId) }
-            )
-        }
+        val navigator = rememberNavController()
+        AppNavigation(navController = navigator)
     }
 }

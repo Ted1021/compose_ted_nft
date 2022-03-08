@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -24,12 +24,15 @@ import coil.compose.rememberImagePainter
 import com.developer.ted.teddynft.R
 import com.developer.ted.teddynft.common.textDp
 
+@ExperimentalMaterialApi
 @Composable
 fun StrokeImageButton(
     @DrawableRes res: Int,
-    modifier: Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     Surface(
+        onClick = onClick,
         border = BorderStroke(width = 1.dp, color = colorResource(R.color.light_gray)),
         shape = RoundedCornerShape(12.dp),
         color = colorResource(R.color.white)
@@ -48,7 +51,7 @@ fun StrokeImageButton(
 fun SelectableTextButton(
     text: String,
     selected: Boolean = false,
-    onClicked: ((String) -> Unit)? = null
+    onCategoryClicked: ((String) -> Unit)? = null
 ) {
     val fontColor = colorResource(if (selected) R.color.white else R.color.black)
     val surfaceColor = colorResource(if (selected) R.color.primary_color else R.color.white)
@@ -60,7 +63,7 @@ fun SelectableTextButton(
         shape = RoundedCornerShape(size = 12.dp),
         modifier = Modifier
             .height(35.dp)
-            .clickable { onClicked?.invoke(text) }
+            .clickable { onCategoryClicked?.invoke(text) }
     ) {
         Text(
             text = text,
@@ -121,8 +124,9 @@ private fun PreviewStrokeTextButtonNotSelected() {
     SelectableTextButton(text = "Test", selected = false)
 }
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun PreviewImageButton() {
-    StrokeImageButton(res = R.drawable.ic_notification, Modifier)
+    StrokeImageButton(res = R.drawable.ic_notification) {}
 }

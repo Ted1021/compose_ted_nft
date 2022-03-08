@@ -11,11 +11,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.developer.ted.teddynft.R
 import com.developer.ted.teddynft.common.textDp
+import com.developer.ted.teddynft.ui.main.MainScreenCarousel
+import com.developer.ted.teddynft.ui.main.MainScreenClickEvent
 
 @Composable
 fun Carousel(
     title: String,
-    onViewAllClicked: (String) -> Unit,
+    onViewAllClicked: (MainScreenClickEvent) -> Unit,
     titlePadding: Dp,
     modifier: Modifier,
     content: @Composable () -> Unit
@@ -31,7 +33,7 @@ fun Carousel(
 fun CarouselTitle(
     title: String,
     titlePadding: Dp,
-    onViewAllClicked: (String) -> Unit
+    onViewAllClicked: (MainScreenClickEvent) -> Unit
 ) {
     Row(Modifier.padding(horizontal = titlePadding)) {
         Text(
@@ -47,7 +49,15 @@ fun CarouselTitle(
             fontWeight = FontWeight.W600,
             fontSize = 18.textDp,
             color = colorResource(R.color.gray),
-            modifier = Modifier.clickable { onViewAllClicked.invoke(title) }
+            modifier = Modifier.clickable {
+                onViewAllClicked.invoke(
+                    MainScreenClickEvent.ViewAll(
+                        MainScreenCarousel.valueOf(
+                            title
+                        )
+                    )
+                )
+            }
         )
     }
 }

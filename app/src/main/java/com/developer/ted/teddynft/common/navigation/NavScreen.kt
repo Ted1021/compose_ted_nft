@@ -26,7 +26,7 @@ sealed class Screen(
      */
 
     object Main : Screen(
-        Main.javaClass.name.lowercase(),
+        "main",
         NavParam(
             paramType = ParamType.MANDATORY,
             navArg = navArgument(ParamKey.USER_ID) {

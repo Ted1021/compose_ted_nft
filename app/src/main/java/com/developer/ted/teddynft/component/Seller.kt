@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,10 +19,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.developer.ted.teddynft.R
 import com.developer.ted.teddynft.common.textDp
+import com.developer.ted.teddynft.ui.main.MainScreenClickEvent
 
+@ExperimentalMaterialApi
 @Composable
-fun Seller() {
+fun Seller(onSellerClicked: (MainScreenClickEvent) -> Unit) {
     Surface(
+        onClick = { onSellerClicked.invoke(MainScreenClickEvent.Seller) },
         shape = RoundedCornerShape(24.dp),
         color = colorResource(id = R.color.seller_background_color)
     ) {
@@ -68,8 +72,9 @@ fun Seller() {
     }
 }
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun PreviewSeller() {
-    Seller()
+    Seller {}
 }
